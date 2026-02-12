@@ -1,10 +1,9 @@
-using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 using Leopotam.EcsProto;
 using TowerOfBlocks.ECS;
+using VContainer;
+using VContainer.Unity;
 
-namespace TowerOfBlocks.Core
+namespace Core
 {
     /// <summary>
     /// VContainer composition root for the game.

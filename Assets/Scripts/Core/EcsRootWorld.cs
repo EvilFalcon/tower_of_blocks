@@ -2,7 +2,7 @@ using System;
 using Leopotam.EcsProto;
 using VContainer.Unity;
 
-namespace TowerOfBlocks.Core
+namespace Core
 {
     /// <summary>
     /// ECS entry point driven by VContainer.

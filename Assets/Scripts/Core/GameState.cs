@@ -1,4 +1,4 @@
-namespace TowerOfBlocks.Core
+namespace Core
 {
     /// <summary>
     /// High-level game state.
