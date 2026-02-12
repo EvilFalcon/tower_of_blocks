@@ -1,9 +1,13 @@
+using ECS.Components;
 using Leopotam.EcsProto;
 
 namespace ECS.Systems
 {
     /// <summary>
     /// Bridges AnimationComponent data to the presentation layer.
+    /// AnimationComponent marks entities that need animation.
+    /// Actual animations are executed by Presenter → View (LitMotion).
+    /// This system just manages the component lifecycle.
     /// </summary>
     public sealed class AnimationSystem : IProtoInitSystem, IProtoRunSystem
     {
@@ -22,6 +26,12 @@ namespace ECS.Systems
                 if (_aspect.AnimationPool.Has(entity))
                 {
                     ref var anim = ref _aspect.AnimationPool.Get(entity);
+
+                    if (anim.Type == AnimationType.MissDisappear)
+                    {
+                        _aspect.AnimationPool.Del(entity);
+                        _aspect.BlockPool.Del(entity);
+                    }
                 }
             }
         }

@@ -66,6 +66,12 @@ namespace Core
 
             builder.Register<MessagePresenter>(resolver => new MessagePresenter(_gameplayView.MessageView), Lifetime.Singleton);
 
+            builder.Register<TowerBlockPresenterManager>(resolver => new TowerBlockPresenterManager(
+                resolver.Resolve<GameAspect>(),
+                _gameplayView.TowerArea,
+                resolver.Resolve<BlockView>(),
+                resolver.Resolve<IGameConfigProvider>()), Lifetime.Singleton);
+
             builder.RegisterEntryPoint<GameplayPresenter>(Lifetime.Singleton);
         }
     }

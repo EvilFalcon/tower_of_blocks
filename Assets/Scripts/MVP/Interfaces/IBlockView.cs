@@ -1,3 +1,4 @@
+using ECS.Components;
 using UnityEngine;
 
 namespace MVP.Interfaces
@@ -10,6 +11,7 @@ namespace MVP.Interfaces
         void SetPosition(Vector2 position);
         void SetImage(Sprite sprite);
         void SetActive(bool isActive);
+        void PlayAnimation(AnimationType type, Vector2 targetPosition);
     }
 }
 

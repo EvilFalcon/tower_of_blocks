@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using ECS;
 using Leopotam.EcsProto;
+using MVP.Interfaces;
 using MVP.View;
 using Services;
 using Configuration;
@@ -18,6 +20,8 @@ namespace MVP.Presenter
         private readonly IGameConfigProvider _configProvider;
         private readonly IBlockDragService _dragService;
         private readonly BlockView _blockPrefab;
+
+        private readonly Dictionary<ProtoEntity, BlockPresenter> _presenters = new();
 
         public BlocksScrollPresenter(
             BlocksScrollView view,
@@ -56,9 +60,17 @@ namespace MVP.Presenter
             GameObject blockObj = blockView.gameObject;
 
             EntityReference entityRef = blockObj.GetComponent<EntityReference>();
+            if (entityRef == null)
+            {
+                entityRef = blockObj.AddComponent<EntityReference>();
+            }
             entityRef.Entity = entity;
 
             BlockDragHandler dragHandler = blockObj.GetComponent<BlockDragHandler>();
+            if (dragHandler == null)
+            {
+                dragHandler = blockObj.AddComponent<BlockDragHandler>();
+            }
             dragHandler.Initialize(_dragService);
 
             Sprite sprite = _configProvider.GetSprite(blockIndex);
@@ -67,6 +79,10 @@ namespace MVP.Presenter
             {
                 blockView.SetImage(sprite);
             }
+
+            BlockPresenter presenter = new BlockPresenter(blockView, entity, _aspect);
+            presenter.Initialize();
+            _presenters[entity] = presenter;
         }
     }
 }

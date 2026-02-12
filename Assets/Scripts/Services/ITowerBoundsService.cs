@@ -7,7 +7,11 @@ namespace Services
     /// </summary>
     public interface ITowerBoundsService
     {
+        /// <summary>
+        /// TODO: Will be used for tower height limit check in TowerManagementSystem.
+        /// </summary>
         float TopY { get; }
+
         float BottomY { get; }
         float LeftX { get; }
         float RightX { get; }

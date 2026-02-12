@@ -1,5 +1,7 @@
+using Core.Signals;
 using ECS.Components;
 using Leopotam.EcsProto;
+using R3;
 using Services;
 using UnityEngine;
 
@@ -41,7 +43,17 @@ namespace ECS.Systems
                         ref var block = ref _aspect.BlockPool.Get(entity);
                         block.IsInScroll = false;
                         _aspect.DragPool.Del(entity);
-                        _aspect.AnimationPool.Add(entity);
+
+                        if (_aspect.TowerBlockPool.Has(entity))
+                        {
+                            ref var anim = ref _aspect.AnimationPool.Add(entity);
+                            anim.Type = AnimationType.HoleFall;
+                        }
+                        else
+                        {
+                            ref var anim = ref _aspect.AnimationPool.Add(entity);
+                            anim.Type = AnimationType.MissDisappear;
+                        }
                     }
                     else if (_towerBoundsService.IsPointInside(drag.PointerWorldPosition))
                     {
@@ -60,9 +72,16 @@ namespace ECS.Systems
                                     Random.Range(_towerBoundsService.LeftX, _towerBoundsService.RightX),
                                     _towerBoundsService.BottomY + towerBlock.TowerIndex * 1f);
                             }
+
+                            if (!_aspect.AnimationPool.Has(entity))
+                            {
+                                ref var anim = ref _aspect.AnimationPool.Add(entity);
+                                anim.Type = AnimationType.PlaceBounce;
+                            }
                         }
 
                         _aspect.DragPool.Del(entity);
+                        GameSignals.EcsStateChanged.OnNext(Unit.Default);
                     }
                     else
                     {
@@ -77,17 +96,20 @@ namespace ECS.Systems
         private int GetTowerHeight()
         {
             int height = 0;
+
             foreach (ProtoEntity entity in _aspect.TowerIt)
             {
                 if (_aspect.TowerBlockPool.Has(entity))
                 {
                     ref var towerBlock = ref _aspect.TowerBlockPool.Get(entity);
+
                     if (towerBlock.TowerIndex >= height)
                     {
                         height = towerBlock.TowerIndex + 1;
                     }
                 }
             }
+
             return height;
         }
     }

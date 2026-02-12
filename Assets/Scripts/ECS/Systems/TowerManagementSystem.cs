@@ -35,7 +35,19 @@ namespace ECS.Systems
 
                     float targetY = _towerBoundsService.BottomY + towerBlock.TowerIndex * 1f;
 
-                    if (pos.Value.y < targetY - 0.01f || pos.Value.y > targetY + 0.01f)
+                    if (_aspect.AnimationPool.Has(entity))
+                    {
+                        ref var anim = ref _aspect.AnimationPool.Get(entity);
+                        if (anim.Type == AnimationType.CollapseDown)
+                        {
+                            if (Mathf.Abs(pos.Value.y - targetY) < 0.01f)
+                            {
+                                _aspect.AnimationPool.Del(entity);
+                            }
+                        }
+                    }
+
+                    if (Mathf.Abs(pos.Value.y - targetY) > 0.01f)
                     {
                         pos.Value = new Vector2(pos.Value.x, targetY);
                     }
