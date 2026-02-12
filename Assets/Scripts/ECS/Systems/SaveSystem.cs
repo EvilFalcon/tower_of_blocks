@@ -23,7 +23,7 @@ namespace TowerOfBlocks.ECS.Systems
             });
         }
 
-        public void Destroy(IProtoSystems systems)
+        public void Destroy()
         {
             _subscription?.Dispose();
             _subscription = null;
