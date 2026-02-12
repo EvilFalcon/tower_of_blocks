@@ -1,6 +1,7 @@
 using System;
 using ECS.Systems;
 using Leopotam.EcsProto;
+using Services;
 using VContainer.Unity;
 
 namespace Core
@@ -16,14 +17,21 @@ namespace Core
         IDisposable
     {
         private readonly ProtoWorld _world;
+        private readonly IHoleDetectionService _holeDetectionService;
+        private readonly ITowerBoundsService _towerBoundsService;
 
         private IProtoSystems _updateSystems;
         private IProtoSystems _fixedSystems;
         private IProtoSystems _lateSystems;
 
-        public EcsRootWorld(ProtoWorld world)
+        public EcsRootWorld(
+            ProtoWorld world,
+            IHoleDetectionService holeDetectionService,
+            ITowerBoundsService towerBoundsService)
         {
             _world = world;
+            _holeDetectionService = holeDetectionService;
+            _towerBoundsService = towerBoundsService;
         }
 
         /// <summary>
@@ -34,8 +42,8 @@ namespace Core
         {
             _updateSystems = new ProtoSystems(_world)
                 .AddSystem(new BlockDragSystem())
-                .AddSystem(new BlockPlacementSystem())
-                .AddSystem(new TowerManagementSystem())
+                .AddSystem(new BlockPlacementSystem(_holeDetectionService, _towerBoundsService))
+                .AddSystem(new TowerManagementSystem(_towerBoundsService))
                 .AddSystem(new BlockRemovalSystem())
                 .AddSystem(new AnimationSystem());
 

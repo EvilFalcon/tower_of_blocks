@@ -11,9 +11,26 @@ namespace MVP.View
     {
         [SerializeField] private Image _image;
 
+        private void Awake()
+        {
+            if (_image == null)
+            {
+                _image = GetComponent<Image>();
+            }
+        }
+
         public void SetPosition(Vector2 position)
         {
-            transform.position = position;
+            RectTransform rect = transform as RectTransform;
+
+            if (rect != null)
+            {
+                rect.anchoredPosition = position;
+            }
+            else
+            {
+                transform.position = position;
+            }
         }
 
         public void SetImage(Sprite sprite)
@@ -30,4 +47,3 @@ namespace MVP.View
         }
     }
 }
-

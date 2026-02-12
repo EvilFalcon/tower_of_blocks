@@ -128,7 +128,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 182
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -147,9 +147,9 @@ TextureImporter:
       name: Cubes_1
       rect:
         serializedVersion: 2
-        x: 237
+        x: 240
         y: 0
-        width: 186
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -168,9 +168,9 @@ TextureImporter:
       name: Cubes_2
       rect:
         serializedVersion: 2
-        x: 478
+        x: 480
         y: 0
-        width: 183
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -189,9 +189,9 @@ TextureImporter:
       name: Cubes_3
       rect:
         serializedVersion: 2
-        x: 717
+        x: 720
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -210,9 +210,9 @@ TextureImporter:
       name: Cubes_4
       rect:
         serializedVersion: 2
-        x: 958
+        x: 960
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -231,9 +231,9 @@ TextureImporter:
       name: Cubes_5
       rect:
         serializedVersion: 2
-        x: 1199
+        x: 1200
         y: 0
-        width: 183
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -252,9 +252,9 @@ TextureImporter:
       name: Cubes_6
       rect:
         serializedVersion: 2
-        x: 1437
+        x: 1440
         y: 0
-        width: 186
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -273,9 +273,9 @@ TextureImporter:
       name: Cubes_7
       rect:
         serializedVersion: 2
-        x: 1678
+        x: 1680
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -294,9 +294,9 @@ TextureImporter:
       name: Cubes_8
       rect:
         serializedVersion: 2
-        x: 1919
+        x: 1920
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -317,7 +317,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2160
         y: 0
-        width: 183
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -336,9 +336,9 @@ TextureImporter:
       name: Cubes_10
       rect:
         serializedVersion: 2
-        x: 2399
+        x: 2400
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -359,7 +359,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2640
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -380,7 +380,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2880
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -401,7 +401,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3120
         y: 0
-        width: 184
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -422,7 +422,7 @@ TextureImporter:
         serializedVersion: 2
         x: 3360
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -441,9 +441,9 @@ TextureImporter:
       name: Cubes_15
       rect:
         serializedVersion: 2
-        x: 3601
+        x: 3600
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -462,9 +462,9 @@ TextureImporter:
       name: Cubes_16
       rect:
         serializedVersion: 2
-        x: 3842
+        x: 3840
         y: 0
-        width: 183
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -483,9 +483,9 @@ TextureImporter:
       name: Cubes_17
       rect:
         serializedVersion: 2
-        x: 4081
+        x: 4080
         y: 0
-        width: 185
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -504,9 +504,9 @@ TextureImporter:
       name: Cubes_18
       rect:
         serializedVersion: 2
-        x: 4321
+        x: 4320
         y: 0
-        width: 186
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -525,9 +525,9 @@ TextureImporter:
       name: Cubes_19
       rect:
         serializedVersion: 2
-        x: 4562
+        x: 4560
         y: 0
-        width: 182
+        width: 180
         height: 179
       alignment: 0
       pivot: {x: 0, y: 0}

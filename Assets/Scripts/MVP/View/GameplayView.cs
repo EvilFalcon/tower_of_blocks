@@ -10,10 +10,12 @@ namespace MVP.View
     {
         [SerializeField] private BlocksScrollView _blocksScrollView;
         [SerializeField] private RectTransform _holeArea;
+        [SerializeField] private RectTransform _towerArea;
         [SerializeField] private MessageView _messageView;
 
         public BlocksScrollView BlocksScrollView => _blocksScrollView;
         public RectTransform HoleArea => _holeArea;
+        public RectTransform TowerArea => _towerArea;
         public IMessageView MessageView => _messageView;
     }
 }

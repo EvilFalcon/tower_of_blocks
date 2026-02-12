@@ -3,19 +3,18 @@ using UnityEngine;
 namespace Configuration
 {
     /// <summary>
-    /// Tower area bounds configuration.
+    /// Tower area bounds configuration (margins, offsets).
+    /// Actual bounds are calculated from UI RectTransform at runtime.
     /// </summary>
     [CreateAssetMenu(fileName = "TowerBoundsConfig", menuName = "TowerOfBlocks/TowerBoundsConfig")]
     public sealed class TowerBoundsConfig : ScriptableObject
     {
-        [SerializeField] private Vector2 topLeftCorner;
-        [SerializeField] private Vector2 bottomRightCorner;
+        [SerializeField] private float _horizontalMarginPercent = 0.2f;
+        [SerializeField] private float _bottomMarginPercent = 0f;
+        [SerializeField] private float _topMarginPercent = 0f;
 
-        public Vector2 TopLeftCorner => topLeftCorner;
-        public Vector2 BottomRightCorner => bottomRightCorner;
-        public float TopY => topLeftCorner.y;
-        public float BottomY => bottomRightCorner.y;
-        public float LeftX => topLeftCorner.x;
-        public float RightX => bottomRightCorner.x;
+        public float HorizontalMarginPercent => _horizontalMarginPercent;
+        public float BottomMarginPercent => _bottomMarginPercent;
+        public float TopMarginPercent => _topMarginPercent;
     }
 }

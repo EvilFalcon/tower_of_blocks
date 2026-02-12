@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Configuration
 {
     /// <summary>
@@ -13,6 +16,7 @@ namespace Configuration
         }
 
         public int BlocksCount => _config.BlocksCount;
-        public System.Collections.Generic.IReadOnlyList<int> BlockColorIds => _config.BlockColorIds;
+        public IReadOnlyList<Sprite> BlockSprites => _config.BlockSprites;
+        public Sprite GetSprite(int index) => _config.GetSprite(index);
     }
 }

@@ -21,6 +21,11 @@ namespace ECS.Components
         /// Current pointer position in world space (for systems to decide placement / miss).
         /// </summary>
         public Vector2 PointerWorldPosition;
+
+        /// <summary>
+        /// Current pointer position in screen space (for UI-based checks like hole detection).
+        /// </summary>
+        public Vector2 PointerScreenPosition;
     }
 }
 

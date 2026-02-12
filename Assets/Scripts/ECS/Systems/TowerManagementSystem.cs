@@ -1,4 +1,7 @@
+using ECS.Components;
 using Leopotam.EcsProto;
+using Services;
+using UnityEngine;
 
 namespace ECS.Systems
 {
@@ -8,6 +11,12 @@ namespace ECS.Systems
     public sealed class TowerManagementSystem : IProtoInitSystem, IProtoRunSystem
     {
         private GameAspect _aspect;
+        private readonly ITowerBoundsService _towerBoundsService;
+
+        public TowerManagementSystem(ITowerBoundsService towerBoundsService)
+        {
+            _towerBoundsService = towerBoundsService;
+        }
 
         public void Init(IProtoSystems systems)
         {
@@ -19,11 +28,17 @@ namespace ECS.Systems
         {
             foreach (ProtoEntity entity in _aspect.TowerIt)
             {
-                ref var towerBlock = ref _aspect.TowerBlockPool.Get(entity);
-
-                if (_aspect.PositionPool.Has(entity))
+                if (_aspect.TowerBlockPool.Has(entity) && _aspect.PositionPool.Has(entity))
                 {
+                    ref var towerBlock = ref _aspect.TowerBlockPool.Get(entity);
                     ref var pos = ref _aspect.PositionPool.Get(entity);
+
+                    float targetY = _towerBoundsService.BottomY + towerBlock.TowerIndex * 1f;
+
+                    if (pos.Value.y < targetY - 0.01f || pos.Value.y > targetY + 0.01f)
+                    {
+                        pos.Value = new Vector2(pos.Value.x, targetY);
+                    }
                 }
             }
         }

@@ -1,3 +1,4 @@
+using ECS.Components;
 using Leopotam.EcsProto;
 
 namespace ECS.Systems
@@ -23,6 +24,11 @@ namespace ECS.Systems
 
                 if (drag.IsDragging)
                 {
+                    if (_aspect.PositionPool.Has(entity))
+                    {
+                        ref var pos = ref _aspect.PositionPool.Get(entity);
+                        pos.Value = drag.PointerWorldPosition;
+                    }
                 }
             }
         }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Configuration
 {
@@ -9,6 +10,7 @@ namespace Configuration
     public interface IGameConfigProvider
     {
         int BlocksCount { get; }
-        IReadOnlyList<int> BlockColorIds { get; }
+        IReadOnlyList<Sprite> BlockSprites { get; }
+        Sprite GetSprite(int index);
     }
 }

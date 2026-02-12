@@ -1,3 +1,5 @@
+using MVP.View;
+using Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,6 +12,18 @@ namespace UI
     public sealed class BlockDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private ScrollRect _parentScrollRect;
+        private IBlockDragService _dragService;
+        private EntityReference _entityRef;
+
+        private void Awake()
+        {
+            _entityRef = GetComponent<EntityReference>();
+        }
+
+        public void Initialize(IBlockDragService dragService)
+        {
+            _dragService = dragService;
+        }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -22,10 +36,16 @@ namespace UI
             {
                 _parentScrollRect.enabled = false;
             }
+
+            if (_entityRef != null && _dragService != null)
+            {
+                _dragService.OnDragStarted(_entityRef.Entity, eventData.position);
+            }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            _dragService?.OnDrag(eventData.position);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -34,6 +54,8 @@ namespace UI
             {
                 _parentScrollRect.enabled = true;
             }
+
+            _dragService?.OnDragEnded(eventData.position);
         }
     }
 }
