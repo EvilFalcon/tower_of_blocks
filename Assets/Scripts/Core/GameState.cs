@@ -2,7 +2,6 @@ namespace Core
 {
     /// <summary>
     /// High-level game state.
-    /// Can be extended later (e.g. Menu, GameOver).
     /// </summary>
     public enum GameState
     {

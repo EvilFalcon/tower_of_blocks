@@ -1,12 +1,12 @@
 using System;
 using Leopotam.EcsProto;
+using TowerOfBlocks.ECS.Systems;
 using VContainer.Unity;
 
-namespace Core
+namespace TowerOfBlocks.Core
 {
     /// <summary>
     /// ECS entry point driven by VContainer.
-    /// Responsible for creating and running system pipelines for Update / FixedUpdate / LateUpdate.
     /// </summary>
     public sealed class EcsRootWorld :
         IInitializable,
@@ -32,23 +32,17 @@ namespace Core
         /// </summary>
         public void Initialize()
         {
-            // Single world, separated system groups for different Unity loops.
-            _updateSystems = new ProtoSystems(_world);
-            _fixedSystems = new ProtoSystems(_world);
-            _lateSystems = new ProtoSystems(_world);
+            _updateSystems = new ProtoSystems(_world)
+                .AddSystem(new BlockDragSystem())
+                .AddSystem(new BlockPlacementSystem())
+                .AddSystem(new TowerManagementSystem())
+                .AddSystem(new BlockRemovalSystem())
+                .AddSystem(new AnimationSystem());
 
-            // TODO: Register gameplay modules, systems and services here
-            // in the following steps of the implementation.
-            //
-            // Example:
-            // _updateSystems
-            //     .AddSystem(new SomeUpdateSystem());
-            //
-            // _fixedSystems
-            //     .AddSystem(new SomeFixedSystem());
-            //
-            // _lateSystems
-            //     .AddSystem(new SomeCleanupSystem());
+            _fixedSystems = new ProtoSystems(_world);
+
+            _lateSystems = new ProtoSystems(_world)
+                .AddSystem(new SaveSystem());
 
             _updateSystems.Init();
             _fixedSystems.Init();

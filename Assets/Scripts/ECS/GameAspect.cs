@@ -13,17 +13,12 @@ namespace TowerOfBlocks.ECS
 
         public void Init(ProtoWorld world)
         {
-            // Cache world reference and register this aspect
-            // so systems can access it later.
             _world = world;
             _world.AddAspect(this);
-
-            // TODO: Register component pools here in later steps.
         }
 
         public void PostInit()
         {
-            // TODO: Initialize iterators / nested aspects when they appear.
         }
 
         /// <summary>
