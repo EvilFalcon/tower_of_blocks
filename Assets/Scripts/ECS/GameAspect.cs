@@ -1,30 +1,62 @@
+using ECS.Components;
 using Leopotam.EcsProto;
 
-namespace TowerOfBlocks.ECS
+namespace ECS
 {
     /// <summary>
     /// Root aspect for the main game world.
-    /// Component pools will be added here step-by-step
-    /// as gameplay features are implemented.
     /// </summary>
     public sealed class GameAspect : IProtoAspect
     {
         private ProtoWorld _world;
 
+        public ProtoPool<BlockComponent> BlockPool { get; private set; }
+        public ProtoPool<TowerBlockComponent> TowerBlockPool { get; private set; }
+        public ProtoPool<PositionComponent> PositionPool { get; private set; }
+        public ProtoPool<ColorComponent> ColorPool { get; private set; }
+        public ProtoPool<DragComponent> DragPool { get; private set; }
+        public ProtoPool<AnimationComponent> AnimationPool { get; private set; }
+
+        public ProtoIt BlockIt { get; private set; }
+        public ProtoIt DragIt { get; private set; }
+        public ProtoIt TowerIt { get; private set; }
+
         public void Init(ProtoWorld world)
         {
             _world = world;
             _world.AddAspect(this);
+
+            BlockPool = new ProtoPool<BlockComponent>();
+            _world.AddPool(BlockPool);
+
+            TowerBlockPool = new ProtoPool<TowerBlockComponent>();
+            _world.AddPool(TowerBlockPool);
+
+            PositionPool = new ProtoPool<PositionComponent>();
+            _world.AddPool(PositionPool);
+
+            ColorPool = new ProtoPool<ColorComponent>();
+            _world.AddPool(ColorPool);
+
+            DragPool = new ProtoPool<DragComponent>();
+            _world.AddPool(DragPool);
+
+            AnimationPool = new ProtoPool<AnimationComponent>();
+            _world.AddPool(AnimationPool);
         }
 
         public void PostInit()
         {
+            BlockIt = new ProtoIt(new[] { typeof(BlockComponent) });
+            BlockIt.Init(_world);
+
+            DragIt = new ProtoIt(new[] { typeof(DragComponent) });
+            DragIt.Init(_world);
+
+            TowerIt = new ProtoIt(new[] { typeof(TowerBlockComponent) });
+            TowerIt.Init(_world);
         }
 
-        /// <summary>
-        /// Provides access to the ECS world associated with this aspect.
-        /// </summary>
         public ProtoWorld World() => _world;
     }
 }
-

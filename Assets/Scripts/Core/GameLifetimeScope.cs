@@ -1,6 +1,5 @@
+using ECS;
 using Leopotam.EcsProto;
-using TowerOfBlocks.Core;
-using TowerOfBlocks.ECS;
 using VContainer;
 using VContainer.Unity;
 
@@ -15,7 +14,7 @@ namespace Core
         protected override void Configure(IContainerBuilder builder)
         {
             // Register ECS world as a singleton.
-            builder.Register<ProtoWorld>(resolver =>
+            builder.Register(resolver =>
             {
                 var world = new ProtoWorld(new GameAspect());
                 return world;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TowerOfBlocks.MVP.View
+namespace MVP.View
 {
     /// <summary>
     /// Wrapper over horizontal ScrollRect for the bottom blocks strip.
@@ -9,15 +9,15 @@ namespace TowerOfBlocks.MVP.View
     [RequireComponent(typeof(ScrollRect))]
     public sealed class BlocksScrollView : MonoBehaviour
     {
-        [SerializeField] private ScrollRect scrollRect;
+        [SerializeField] private ScrollRect _scrollRect;
 
-        public ScrollRect ScrollRect => scrollRect;
+        public ScrollRect ScrollRect => _scrollRect;
 
         private void Awake()
         {
-            if (scrollRect == null)
+            if (_scrollRect == null)
             {
-                scrollRect = GetComponent<ScrollRect>();
+                _scrollRect = GetComponent<ScrollRect>();
             }
         }
     }

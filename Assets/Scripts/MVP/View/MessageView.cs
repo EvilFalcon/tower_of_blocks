@@ -1,21 +1,22 @@
-using TowerOfBlocks.MVP.Interfaces;
-using UnityEngine;
+using MVP.Interfaces;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace TowerOfBlocks.MVP.View
+namespace MVP.View
 {
     /// <summary>
     /// MonoBehaviour implementation of IMessageView.
     /// </summary>
     public sealed class MessageView : MonoBehaviour, IMessageView
     {
-        [SerializeField] private TMP_Text text;
+        [SerializeField] private TMP_Text _text;
 
         public void ShowMessage(string value)
         {
-            if (text != null)
+            if (_text != null)
             {
-                text.text = value;
+                _text.text = value;
             }
 
             gameObject.SetActive(true);

@@ -1,9 +1,9 @@
 using System;
+using Core.Signals;
 using Leopotam.EcsProto;
 using R3;
-using TowerOfBlocks.Core.Signals;
 
-namespace TowerOfBlocks.ECS.Systems
+namespace ECS.Systems
 {
     /// <summary>
     /// Reactive save system on R3.

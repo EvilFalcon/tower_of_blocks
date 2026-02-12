@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TowerOfBlocks.MVP.Interfaces
+namespace MVP.Interfaces
 {
     /// <summary>
     /// View contract for a block in the tower.

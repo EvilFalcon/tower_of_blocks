@@ -1,4 +1,4 @@
-namespace TowerOfBlocks.MVP.Interfaces
+namespace MVP.Interfaces
 {
     /// <summary>
     /// View contract for displaying short messages.

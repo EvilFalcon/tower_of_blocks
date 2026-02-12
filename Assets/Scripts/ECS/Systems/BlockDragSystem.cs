@@ -1,6 +1,6 @@
 using Leopotam.EcsProto;
 
-namespace TowerOfBlocks.ECS.Systems
+namespace ECS.Systems
 {
     /// <summary>
     /// Handles drag state for blocks.
@@ -17,7 +17,14 @@ namespace TowerOfBlocks.ECS.Systems
 
         public void Run()
         {
+            foreach (ProtoEntity entity in _aspect.DragIt)
+            {
+                ref var drag = ref _aspect.DragPool.Get(entity);
+
+                if (drag.IsDragging)
+                {
+                }
+            }
         }
     }
 }
-

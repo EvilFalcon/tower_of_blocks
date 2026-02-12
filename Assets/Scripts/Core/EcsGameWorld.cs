@@ -1,8 +1,8 @@
-using UnityEngine;
+using Core;
+using ECS;
 using VContainer;
 using VContainer.Unity;
 using Leopotam.EcsProto;
-using TowerOfBlocks.ECS;
 
 namespace TowerOfBlocks.Core
 {
@@ -13,7 +13,7 @@ namespace TowerOfBlocks.Core
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.Register<ProtoWorld>(resolver =>
+            builder.Register(resolver =>
             {
                 var world = new ProtoWorld(new GameAspect());
                 return world;

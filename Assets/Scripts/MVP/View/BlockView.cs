@@ -1,14 +1,15 @@
-using TowerOfBlocks.MVP.Interfaces;
+using MVP.Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace TowerOfBlocks.MVP.View
+namespace MVP.View
 {
     /// <summary>
     /// MonoBehaviour implementation of IBlockView.
     /// </summary>
     public sealed class BlockView : MonoBehaviour, IBlockView
     {
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Image _image;
 
         public void SetPosition(Vector2 position)
         {
@@ -17,9 +18,9 @@ namespace TowerOfBlocks.MVP.View
 
         public void SetImage(Sprite sprite)
         {
-            if (spriteRenderer != null)
+            if (_image != null)
             {
-                spriteRenderer.sprite = sprite;
+                _image.sprite = sprite;
             }
         }
 

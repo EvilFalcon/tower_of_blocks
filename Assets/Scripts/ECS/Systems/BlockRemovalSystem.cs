@@ -1,6 +1,6 @@
 using Leopotam.EcsProto;
 
-namespace TowerOfBlocks.ECS.Systems
+namespace ECS.Systems
 {
     /// <summary>
     /// Handles removal of blocks.
@@ -20,4 +20,3 @@ namespace TowerOfBlocks.ECS.Systems
         }
     }
 }
-

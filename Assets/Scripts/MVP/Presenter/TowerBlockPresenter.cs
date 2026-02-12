@@ -1,6 +1,6 @@
-using TowerOfBlocks.MVP.Interfaces;
+using MVP.Interfaces;
 
-namespace TowerOfBlocks.MVP.Presenter
+namespace MVP.Presenter
 {
     /// <summary>
     /// Presenter for a block in the tower.

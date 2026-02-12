@@ -1,6 +1,6 @@
 using Leopotam.EcsProto;
 
-namespace TowerOfBlocks.ECS.Systems
+namespace ECS.Systems
 {
     /// <summary>
     /// Bridges AnimationComponent data to the presentation layer.
@@ -17,7 +17,13 @@ namespace TowerOfBlocks.ECS.Systems
 
         public void Run()
         {
+            foreach (ProtoEntity entity in _aspect.BlockIt)
+            {
+                if (_aspect.AnimationPool.Has(entity))
+                {
+                    ref var anim = ref _aspect.AnimationPool.Get(entity);
+                }
+            }
         }
     }
 }
-

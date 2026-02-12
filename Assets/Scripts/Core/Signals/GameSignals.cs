@@ -1,6 +1,6 @@
 using R3;
 
-namespace TowerOfBlocks.Core.Signals
+namespace Core.Signals
 {
     /// <summary>
     /// Central place for core reactive signals (R3).

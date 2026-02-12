@@ -1,6 +1,6 @@
 using Leopotam.EcsProto;
 
-namespace TowerOfBlocks.ECS.Systems
+namespace ECS.Systems
 {
     /// <summary>
     /// Maintains tower structure.
@@ -17,7 +17,15 @@ namespace TowerOfBlocks.ECS.Systems
 
         public void Run()
         {
+            foreach (ProtoEntity entity in _aspect.TowerIt)
+            {
+                ref var towerBlock = ref _aspect.TowerBlockPool.Get(entity);
+
+                if (_aspect.PositionPool.Has(entity))
+                {
+                    ref var pos = ref _aspect.PositionPool.Get(entity);
+                }
+            }
         }
     }
 }
-

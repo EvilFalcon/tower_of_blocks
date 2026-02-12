@@ -1,7 +1,7 @@
-using TowerOfBlocks.MVP.Interfaces;
+using MVP.Interfaces;
 using UnityEngine;
 
-namespace TowerOfBlocks.MVP.View
+namespace MVP.View
 {
     /// <summary>
     /// MonoBehaviour implementation of ITowerBlockView.
