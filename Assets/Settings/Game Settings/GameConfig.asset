@@ -33,3 +33,27 @@ MonoBehaviour:
   - {fileID: 1022118389, guid: 10f6ba0a5dd91284985b8bf40fe47044, type: 3}
   - {fileID: -723387610, guid: 10f6ba0a5dd91284985b8bf40fe47044, type: 3}
   - {fileID: 1235577444, guid: 10f6ba0a5dd91284985b8bf40fe47044, type: 3}
+  _towerBounds:
+    HorizontalMarginPercent: 0.06
+    BottomMarginPercent: 0.01
+    TopMarginPercent: 0.08
+    BlockHeight: 180
+  _animations:
+    PlaceBounce:
+      BounceUpDuration: 0.15
+      BounceDownDuration: 0.15
+      BounceOffsetPixels: 20
+    HoleFall:
+      ArcHeight: 120
+      ArcDuration: 0.4
+      FadeDuration: 0.2
+    CollapseDown:
+      Duration: 0.2
+    MissDisappear:
+      FadeDuration: 0.2
+      HideDelay: 0.2
+    DragGhost:
+      Alpha: 0.6
+    Timing:
+      RemoveAfterAnimationSeconds: 0.6
+  _saveKey: TowerState

@@ -536,13 +536,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1742889057}
     m_Modifications:
+    - target: {fileID: 48676533756099829, guid: 430fa3899cd831943837e1054a06c701, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4887444342686389210, guid: 430fa3899cd831943837e1054a06c701, type: 3}
       propertyPath: m_Name
       value: GostView
       objectReference: {fileID: 0}
     - target: {fileID: 4887444342686389210, guid: 430fa3899cd831943837e1054a06c701, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5233614185410206398, guid: 430fa3899cd831943837e1054a06c701, type: 3}
       propertyPath: m_Pivot.x
@@ -606,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5233614185410206398, guid: 430fa3899cd831943837e1054a06c701, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -2034
       objectReference: {fileID: 0}
     - target: {fileID: 5233614185410206398, guid: 430fa3899cd831943837e1054a06c701, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -800,8 +804,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667732984295068248, guid: 677bb11c1ec1ec54f9811527174b2db0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.00012207031
       objectReference: {fileID: 0}
+    - target: {fileID: 6717945759454952295, guid: 677bb11c1ec1ec54f9811527174b2db0, type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 6717945759454952295, guid: 677bb11c1ec1ec54f9811527174b2db0, type: 3}
+      propertyPath: _mainCanvas
+      value: 
+      objectReference: {fileID: 1742889056}
     - target: {fileID: 6717945759454952295, guid: 677bb11c1ec1ec54f9811527174b2db0, type: 3}
       propertyPath: _dragGhostView
       value: 
