@@ -1,13 +1,9 @@
 using MVP.Interfaces;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MVP.View
 {
-    /// <summary>
-    /// MonoBehaviour implementation of IMessageView.
-    /// </summary>
     public sealed class MessageView : MonoBehaviour, IMessageView
     {
         [SerializeField] private TMP_Text _text;

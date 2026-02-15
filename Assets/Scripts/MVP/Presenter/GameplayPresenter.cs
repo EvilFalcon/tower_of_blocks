@@ -1,42 +1,45 @@
-using ECS;
-using MVP.View;
-using Configuration;
+using Services;
 using VContainer.Unity;
 
 namespace MVP.Presenter
 {
-    /// <summary>
-    /// Main presenter that coordinates all gameplay views and ECS systems.
-    /// </summary>
     public sealed class GameplayPresenter : IInitializable
     {
-        private readonly GameplayView _view;
-        private readonly GameAspect _aspect;
-        private readonly IGameConfigProvider _configProvider;
         private readonly BlocksScrollPresenter _scrollPresenter;
         private readonly MessagePresenter _messagePresenter;
+        private readonly DragGhostPresenter _dragGhostPresenter;
         private readonly TowerBlockPresenterManager _towerPresenterManager;
+        private readonly PooledBlockPresenterManager _pooledPresenterManager;
+        private readonly IGameStateLoader _stateLoader;
 
         public GameplayPresenter(
-            GameplayView view,
-            GameAspect aspect,
-            IGameConfigProvider configProvider,
             BlocksScrollPresenter scrollPresenter,
             MessagePresenter messagePresenter,
-            TowerBlockPresenterManager towerPresenterManager)
+            DragGhostPresenter dragGhostPresenter,
+            TowerBlockPresenterManager towerPresenterManager,
+            PooledBlockPresenterManager pooledPresenterManager,
+            IGameStateLoader stateLoader)
         {
-            _view = view;
-            _aspect = aspect;
-            _configProvider = configProvider;
             _scrollPresenter = scrollPresenter;
             _messagePresenter = messagePresenter;
+            _dragGhostPresenter = dragGhostPresenter;
             _towerPresenterManager = towerPresenterManager;
+            _pooledPresenterManager = pooledPresenterManager;
+            _stateLoader = stateLoader;
         }
 
         public void Initialize()
         {
+            if (_stateLoader.HasSavedState())
+            {
+                _stateLoader.LoadState();
+            }
+
             _scrollPresenter.Initialize();
             _towerPresenterManager.Initialize();
+            _pooledPresenterManager.Initialize();
+            _messagePresenter.Initialize();
+            _dragGhostPresenter.Initialize();
         }
     }
 }

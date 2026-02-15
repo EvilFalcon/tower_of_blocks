@@ -1,9 +1,6 @@
 namespace Services
 {
-    /// <summary>
-    /// Stub implementation of ILocalizationService.
-    /// Returns key as-is for now; can be extended later.
-    /// </summary>
+    // TODO: For real localization, strings need to be substituted from tables by key instead of returning key (e.g., via ScriptableObject or JSON)
     public sealed class LocalizationService : ILocalizationService
     {
         public string GetText(string key)

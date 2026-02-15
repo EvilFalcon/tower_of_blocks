@@ -1,14 +1,17 @@
-using ECS.Components;
 using Leopotam.EcsProto;
+using MVP.Presenter;
 
 namespace ECS.Systems
 {
-    /// <summary>
-    /// Handles drag state for blocks.
-    /// </summary>
     public sealed class BlockDragSystem : IProtoInitSystem, IProtoRunSystem
     {
         private GameAspect _aspect;
+        private readonly PooledBlockPresenterManager _presenterManager;
+
+        public BlockDragSystem(PooledBlockPresenterManager presenterManager)
+        {
+            _presenterManager = presenterManager;
+        }
 
         public void Init(IProtoSystems systems)
         {
@@ -18,18 +21,33 @@ namespace ECS.Systems
 
         public void Run()
         {
-            foreach (ProtoEntity entity in _aspect.DragIt)
+            foreach (var entity in _aspect.DragIt)
             {
                 ref var drag = ref _aspect.DragPool.Get(entity);
 
-                if (drag.IsDragging)
+                if (!drag.IsDragging)
+                    continue;
+
+                if (_aspect.DragStatePool.Has(entity))
                 {
                     if (_aspect.PositionPool.Has(entity))
                     {
                         ref var pos = ref _aspect.PositionPool.Get(entity);
                         pos.Value = drag.PointerWorldPosition;
                     }
+
+                    continue;
                 }
+
+                if (_aspect.PositionPool.Has(entity))
+                {
+                    ref var pos = ref _aspect.PositionPool.Get(entity);
+                    pos.Value = drag.PointerWorldPosition;
+                }
+
+                var view = _presenterManager?.GetView(entity);
+
+                view?.SetPosition(drag.PointerWorldPosition);
             }
         }
     }

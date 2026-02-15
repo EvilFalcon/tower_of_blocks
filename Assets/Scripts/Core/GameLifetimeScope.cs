@@ -10,13 +10,9 @@ using VContainer.Unity;
 
 namespace Core
 {
-    /// <summary>
-    /// VContainer composition root for the game.
-    /// </summary>
     public sealed class GameLifetimeScope : LifetimeScope
     {
         [SerializeField] private GameConfig _gameConfig;
-        [SerializeField] private TowerBoundsConfig _towerBoundsConfig;
         [SerializeField] private GameplayView _gameplayView;
         [SerializeField] private BlockView _blockPrefab;
 
@@ -38,21 +34,55 @@ namespace Core
 
             builder.Register<IGameConfigProvider>(resolver => new ScriptableObjectConfigProvider(_gameConfig), Lifetime.Singleton);
 
-            builder.RegisterInstance(_towerBoundsConfig);
-
             builder.Register<ITowerBoundsService>(resolver => new TowerBoundsService(
                 _gameplayView.TowerArea,
-                _towerBoundsConfig,
-                Camera.main), Lifetime.Singleton);
+                resolver.Resolve<IGameConfigProvider>(),
+                _gameplayView.MainCanvas,
+                _gameplayView.MainCamera), Lifetime.Singleton);
 
-            builder.Register<IHoleDetectionService>(resolver => new HoleDetectionService(_gameplayView.HoleArea), Lifetime.Singleton);
+            builder.Register<IHoleDetectionService>(resolver => new HoleDetectionService(
+                _gameplayView.HoleArea,
+                _gameplayView.MainCanvas,
+                _gameplayView.MainCamera), Lifetime.Singleton);
+
+            builder.Register<Transform>(resolver =>
+            {
+                GameObject poolParent = new GameObject("BlockViewPool");
+                poolParent.transform.SetParent(_gameplayView.transform);
+                return poolParent.transform;
+            }, Lifetime.Singleton);
+
+            builder.Register<IBlockViewPool>(resolver => new BlockViewPool(
+                resolver.Resolve<BlockView>(),
+                resolver.Resolve<Transform>()), Lifetime.Singleton);
+
+            builder.Register<PooledBlockPresenterManager>(resolver => new PooledBlockPresenterManager(
+                resolver.Resolve<GameAspect>(),
+                resolver.Resolve<IGameConfigProvider>()), Lifetime.Singleton);
+
+            builder.Register<IBlockPoolService>(resolver => new BlockPoolService(
+                resolver.Resolve<GameAspect>(),
+                resolver.Resolve<IBlockViewPool>(),
+                resolver.Resolve<PooledBlockPresenterManager>(),
+                resolver.Resolve<IGameConfigProvider>(),
+                _gameplayView.MainCanvas,
+                _gameplayView.MainCamera), Lifetime.Singleton);
 
             builder.Register<IBlockDragService>(resolver => new BlockDragService(
                 resolver.Resolve<GameAspect>(),
-                Camera.main), Lifetime.Singleton);
+                () => resolver.Resolve<TowerBlockPresenterManager>(),
+                resolver.Resolve<GameplayView>().DragGhostView,
+                resolver.Resolve<IGameConfigProvider>(),
+                _gameplayView.MainCamera), Lifetime.Singleton);
 
             builder.Register<ISaveService, SaveService>(Lifetime.Singleton);
             builder.Register<ILocalizationService, LocalizationService>(Lifetime.Singleton);
+
+            builder.Register<IGameStateLoader>(resolver => new GameStateLoader(
+                resolver.Resolve<GameAspect>(),
+                resolver.Resolve<ISaveService>(),
+                resolver.Resolve<ITowerBoundsService>(),
+                resolver.Resolve<IGameConfigProvider>()), Lifetime.Singleton);
 
             builder.RegisterInstance(_gameplayView);
             builder.RegisterInstance(_blockPrefab);
@@ -62,15 +92,26 @@ namespace Core
                 resolver.Resolve<GameAspect>(),
                 resolver.Resolve<IGameConfigProvider>(),
                 resolver.Resolve<IBlockDragService>(),
-                resolver.Resolve<BlockView>()), Lifetime.Singleton);
+                resolver.Resolve<BlockView>(),
+                _gameplayView.MainCanvas,
+                _gameplayView.MainCamera), Lifetime.Singleton);
 
-            builder.Register<MessagePresenter>(resolver => new MessagePresenter(_gameplayView.MessageView), Lifetime.Singleton);
+            builder.Register<MessagePresenter>(resolver => new MessagePresenter(
+                _gameplayView.MessageView,
+                resolver.Resolve<ILocalizationService>()), Lifetime.Singleton);
+
+            builder.Register<DragGhostPresenter>(resolver => new DragGhostPresenter(
+                _gameplayView.DragGhostView,
+                resolver.Resolve<IGameConfigProvider>()), Lifetime.Singleton);
 
             builder.Register<TowerBlockPresenterManager>(resolver => new TowerBlockPresenterManager(
                 resolver.Resolve<GameAspect>(),
                 _gameplayView.TowerArea,
-                resolver.Resolve<BlockView>(),
-                resolver.Resolve<IGameConfigProvider>()), Lifetime.Singleton);
+                resolver.Resolve<IBlockViewPool>(),
+                resolver.Resolve<IGameConfigProvider>(),
+                resolver.Resolve<IBlockDragService>(),
+                _gameplayView.MainCanvas,
+                _gameplayView.MainCamera), Lifetime.Singleton);
 
             builder.RegisterEntryPoint<GameplayPresenter>(Lifetime.Singleton);
         }

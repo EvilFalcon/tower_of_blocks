@@ -2,19 +2,19 @@ using UnityEngine;
 
 namespace Services
 {
-    /// <summary>
-    /// Service for calculating tower area bounds from UI.
-    /// </summary>
     public interface ITowerBoundsService
     {
-        /// <summary>
-        /// TODO: Will be used for tower height limit check in TowerManagementSystem.
-        /// </summary>
         float TopY { get; }
-
         float BottomY { get; }
         float LeftX { get; }
         float RightX { get; }
-        bool IsPointInside(Vector2 worldPosition);
+        float BlockHeight { get; }
+        float HalfBlockHeight { get; }
+        bool IsPointInside(Vector2 screenPosition);
+        bool IsPointInsideWithMargin(Vector2 screenPosition, float marginInLocalUnits);
+        Vector2 LocalToAnchoredPosition(float localX, float localY);
+        float AnchoredXToLocalX(float anchoredX);
+        bool ScreenPointToLocalX(Vector2 screenPosition, out float localX);
+        bool ScreenPointToLocalPoint(Vector2 screenPosition, out Vector2 localPoint);
     }
 }

@@ -1,15 +1,15 @@
+using System;
 using ECS.Components;
 using ECS;
 using Leopotam.EcsProto;
 using MVP.Interfaces;
+using MVP.View;
 using R3;
 using UnityEngine;
+using Utils;
 
 namespace MVP.Presenter
 {
-    /// <summary>
-    /// Presenter for a block in the tower.
-    /// </summary>
     public sealed class TowerBlockPresenter
     {
         private readonly ITowerBlockView _view;
@@ -43,52 +43,114 @@ namespace MVP.Presenter
 
         private void Update()
         {
-            if (_aspect.PositionPool.Has(_entity))
+            try
             {
-                ref var pos = ref _aspect.PositionPool.Get(_entity);
-
-                if (Vector2.Distance(_lastPosition, pos.Value) > 0.01f)
+                if (_aspect.DragPool.Has(_entity))
                 {
-                    _lastPosition = pos.Value;
+                    ref var drag = ref _aspect.DragPool.Get(_entity);
 
-                    if (_aspect.AnimationPool.Has(_entity))
+                    if (drag.IsDragging && _aspect.AnimationPool.Has(_entity))
                     {
                         ref var anim = ref _aspect.AnimationPool.Get(_entity);
-                        if (anim.Type != _lastAnimationType)
+
+                        if (anim.Type != AnimationType.None)
                         {
-                            _lastAnimationType = anim.Type;
-                            _view.PlayAnimation(anim.Type, pos.Value);
+                            _aspect.AnimationPool.Del(_entity);
+                            _lastAnimationType = AnimationType.None;
                         }
                     }
-                    else
-                    {
-                        _view.SetPosition(pos.Value);
-                    }
                 }
-            }
 
-            if (_aspect.AnimationPool.Has(_entity))
-            {
-                ref var anim = ref _aspect.AnimationPool.Get(_entity);
-                if (anim.Type != _lastAnimationType)
+                if (_aspect.PositionPool.Has(_entity))
                 {
-                    _lastAnimationType = anim.Type;
-                    if (_aspect.PositionPool.Has(_entity))
+                    ref var pos = ref _aspect.PositionPool.Get(_entity);
+
+                    if (Vector2.Distance(_lastPosition, pos.Value) > FloatConstants.PositionEpsilon)
                     {
-                        ref var pos = ref _aspect.PositionPool.Get(_entity);
-                        _view.PlayAnimation(anim.Type, pos.Value);
+                        _lastPosition = pos.Value;
+
+                        if (_aspect.DragPool.Has(_entity))
+                        {
+                            ref var drag = ref _aspect.DragPool.Get(_entity);
+
+                            if (drag.IsDragging)
+                            {
+                                _view.SetPosition(pos.Value);
+                                return;
+                            }
+                        }
+
+                        if (_aspect.AnimationPool.Has(_entity))
+                        {
+                            ref var anim = ref _aspect.AnimationPool.Get(_entity);
+
+                            if (anim.Type == AnimationType.CollapseDown)
+                            {
+                                if (_lastAnimationType != anim.Type)
+                                    _lastAnimationType = anim.Type;
+
+                                _view.PlayAnimation(anim.Type, pos.Value);
+                            }
+                            else if (anim.Type != _lastAnimationType)
+                            {
+                                _lastAnimationType = anim.Type;
+                                _view.PlayAnimation(anim.Type, pos.Value);
+                            }
+                        }
+                        else
+                        {
+                            _view.SetPosition(pos.Value);
+                        }
                     }
                 }
-            }
-            else if (_lastAnimationType != AnimationType.None)
-            {
-                _lastAnimationType = AnimationType.None;
-            }
 
-            if (!_aspect.TowerBlockPool.Has(_entity))
-            {
-                _view.SetActive(false);
+                if (_aspect.AnimationPool.Has(_entity))
+                {
+                    ref var anim = ref _aspect.AnimationPool.Get(_entity);
+
+                    if (anim.Type != _lastAnimationType)
+                    {
+                        _lastAnimationType = anim.Type;
+                        var targetPos = anim.Type == AnimationType.HoleFall
+                            ? anim.TargetPosition
+                            : _aspect.PositionPool.Has(_entity)
+                                ? _aspect.PositionPool.Get(_entity).Value
+                                : _lastPosition;
+
+                        if (anim.Type != AnimationType.HoleFall && _aspect.PositionPool.Has(_entity))
+                        {
+                            ref var pos = ref _aspect.PositionPool.Get(_entity);
+                            if (Vector2.Distance(_lastPosition, pos.Value) > FloatConstants.PositionEpsilon)
+                                return;
+                        }
+
+                        if (anim.Type == AnimationType.HoleFall && _view is TowerBlockView tv && tv.BlockView != null)
+                            tv.BlockView.ResetState();
+                        _view.PlayAnimation(anim.Type, targetPos);
+                    }
+                }
+                else if (_lastAnimationType != AnimationType.None)
+                {
+                    _lastAnimationType = AnimationType.None;
+                }
+
+                if (_aspect.TowerBlockPool.Has(_entity))
+                    return;
+
+                var hasHoleFall = _aspect.AnimationPool.Has(_entity) && _aspect.AnimationPool.Get(_entity).Type == AnimationType.HoleFall;
+                
+                if (!hasHoleFall)
+                    _view.SetActive(false);
             }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        public ITowerBlockView GetView()
+        {
+            return _view;
         }
 
         public void Dispose()
@@ -97,4 +159,3 @@ namespace MVP.Presenter
         }
     }
 }
-

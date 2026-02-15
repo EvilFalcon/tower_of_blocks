@@ -2,9 +2,6 @@ using UnityEngine;
 
 namespace Services
 {
-    /// <summary>
-    /// PlayerPrefs-based implementation of ISaveService.
-    /// </summary>
     public sealed class SaveService : ISaveService
     {
         public void Save(string key, string data)

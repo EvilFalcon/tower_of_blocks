@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7933480346531387160}
-  - component: {fileID: 6856481358048447270}
+  - component: {fileID: 4893394773590515472}
   m_Layer: 0
   m_Name: GameLifetimeScope
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6856481358048447270
+--- !u!114 &4893394773590515472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1406936555181160155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 722002f5ba044654f9189415025708b4, type: 3}
+  m_Script: {fileID: 11500000, guid: f0c835c17640ace4b928e49685fcc233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  _gameConfig: {fileID: 11400000, guid: 61029668d16ed02498dff6e42a1dc88f, type: 2}
+  _towerBoundsConfig: {fileID: 11400000, guid: 24df8050025044643abfbb057feb3d76, type: 2}
+  _gameplayView: {fileID: 0}
+  _blockPrefab: {fileID: 5900875673166909737, guid: 6b0649f3336e2b0428335a85e28061ce, type: 3}

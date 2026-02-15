@@ -3,9 +3,6 @@ using Leopotam.EcsProto;
 
 namespace ECS
 {
-    /// <summary>
-    /// Root aspect for the main game world.
-    /// </summary>
     public sealed class GameAspect : IProtoAspect
     {
         private ProtoWorld _world;
@@ -15,11 +12,16 @@ namespace ECS
         public ProtoPool<PositionComponent> PositionPool { get; private set; }
         public ProtoPool<ColorComponent> ColorPool { get; private set; }
         public ProtoPool<DragComponent> DragPool { get; private set; }
+        public ProtoPool<DragStateComponent> DragStatePool { get; private set; }
         public ProtoPool<AnimationComponent> AnimationPool { get; private set; }
+        public ProtoPool<PooledBlockComponent> PooledBlockPool { get; private set; }
 
         public ProtoIt BlockIt { get; private set; }
         public ProtoIt DragIt { get; private set; }
+        public ProtoIt DragStateIt { get; private set; }
         public ProtoIt TowerIt { get; private set; }
+
+        public ProtoEntity DragEntity { get; set; }
 
         public void Init(ProtoWorld world)
         {
@@ -41,8 +43,14 @@ namespace ECS
             DragPool = new ProtoPool<DragComponent>();
             _world.AddPool(DragPool);
 
+            DragStatePool = new ProtoPool<DragStateComponent>();
+            _world.AddPool(DragStatePool);
+
             AnimationPool = new ProtoPool<AnimationComponent>();
             _world.AddPool(AnimationPool);
+
+            PooledBlockPool = new ProtoPool<PooledBlockComponent>();
+            _world.AddPool(PooledBlockPool);
         }
 
         public void PostInit()
@@ -52,6 +60,9 @@ namespace ECS
 
             DragIt = new ProtoIt(new[] { typeof(DragComponent) });
             DragIt.Init(_world);
+
+            DragStateIt = new ProtoIt(new[] { typeof(DragStateComponent) });
+            DragStateIt.Init(_world);
 
             TowerIt = new ProtoIt(new[] { typeof(TowerBlockComponent) });
             TowerIt.Init(_world);

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b71601f1434fe44a8898d63dd3f006, type: 3}
   m_Name: TowerBoundsConfig
   m_EditorClassIdentifier: 
-  horizontalMarginPercent: 0.15
-  bottomMarginPercent: 0.05
-  topMarginPercent: 0.05
+  _horizontalMarginPercent: 0
+  _bottomMarginPercent: 0.01
+  _topMarginPercent: 0.08
+  _blockHeight: 180
