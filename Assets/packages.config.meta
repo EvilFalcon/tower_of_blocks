@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ca81aa0036bdd5540ba5224ffe39fd1d
+guid: c70c83792202b624983889e778d9d80d
 labels:
 - NuGetForUnity
 PluginImporter:
@@ -8,7 +8,7 @@ PluginImporter:
   iconMap: {}
   executionOrder: {}
   defineConstraints: []
-  isPreloaded: 0
+  isPreloaded: 1
   isOverridable: 0
   isExplicitlyReferenced: 0
   validateReferences: 1
@@ -35,7 +35,7 @@ PluginImporter:
   - first:
       Any: 
     second:
-      enabled: 0
+      enabled: 1
       settings: {}
   - first:
       Editor: Editor
@@ -50,7 +50,7 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        CPU: x86_64
+        CPU: AnyCPU
   - first:
       Standalone: OSXUniversal
     second:
